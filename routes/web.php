@@ -14,3 +14,15 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Auth::routes();
+
+Route::group(['prefix' => 'bsd-admin', 'middleware' => ['role:superadministrator|administrator|editor|contributor|author']], function() {
+
+    Route::get('/', 'DashboardController@index');
+    Route::get('/dashboard', 'DashboardController@dashboard')->name('bsd-admin.dashboard');
+    Route::resource('/user', 'UsersController');
+    Route::resource('/permissions', 'PermissionsController', ['except' => 'destroy']);
+});
+
+Route::get('/home', 'HomeController@index')->name('home');
