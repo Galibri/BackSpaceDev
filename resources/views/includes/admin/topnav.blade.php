@@ -27,7 +27,7 @@
                     </a>
 
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                        <a href="#" class="dropdown-item"><i class="fa fa-user"></i> Profile</a>
+                        <a href="{{ route('user.show', auth()->user()->id) }}" class="dropdown-item"><i class="fa fa-user"></i> Profile</a>
                         <a href="#" class="dropdown-item"><i class="fa fa-bell"></i> Notifications</a>
                         <a href="#" class="dropdown-item"><i class="fa fa-cog"></i> Settings</a>
                         <div class="dropdown-divider"></div>

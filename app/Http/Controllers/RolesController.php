@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Role;
+use App\Permission;
 use Illuminate\Http\Request;
 
 class RolesController extends Controller
@@ -13,7 +15,8 @@ class RolesController extends Controller
      */
     public function index()
     {
-        //
+        $roles = Role::all();
+        return view('bsd-admin.roles.index', compact('roles'));
     }
 
     /**
@@ -23,7 +26,8 @@ class RolesController extends Controller
      */
     public function create()
     {
-        //
+        $permissions = Permission::all();
+        return view('bsd-admin.roles.create', compact('permissions'));
     }
 
     /**
@@ -34,7 +38,22 @@ class RolesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'display_name' => 'required|max:255',
+            'name' => 'required|max:255|alpha_dash|unique:roles,name',
+            'description' => 'required|max:255'
+        ]);
+
+        $role = new Role();
+        $role->display_name = $request->display_name;
+        $role->name = $request->name;
+        $role->description = $request->description;
+        $role->save();
+
+        if($request->permission_ids) {
+            $role->syncPermissions(explode(',', $request->permission_ids));
+        }
+        return redirect()->route('roles.index')->with('success', 'Role Added!');
     }
 
     /**
@@ -45,7 +64,8 @@ class RolesController extends Controller
      */
     public function show($id)
     {
-        //
+        $role = Role::whereId($id)->with('permissions')->first();
+        return view('bsd-admin.roles.show', compact('role'));
     }
 
     /**
@@ -56,7 +76,9 @@ class RolesController extends Controller
      */
     public function edit($id)
     {
-        //
+        $role = Role::whereId($id)->with('permissions')->first();
+        $permissions = Permission::all();
+        return view('bsd-admin.roles.edit', compact('role', 'permissions'));
     }
 
     /**
@@ -68,7 +90,20 @@ class RolesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, [
+            'display_name' => 'required|max:255',
+            'description' => 'required|max:255'
+        ]);
+
+        $role = Role::findOrFail($id);
+        $role->display_name = $request->display_name;
+        $role->description = $request->description;
+        $role->save();
+
+        if($request->permission_ids) {
+            $role->syncPermissions(explode(',', $request->permission_ids));
+        }
+        return redirect()->route('roles.index')->with('success', 'Role updated!');
     }
 
     /**
@@ -79,6 +114,10 @@ class RolesController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $role = Role::findOrFail($id);
+        $permissions = $role->permissions->pluck('id');
+        $role->syncPermissions($permissions);
+        $role->delete();
+        return redirect()->route('roles.index')->with('success', 'Role Deleted Successfully');
     }
 }

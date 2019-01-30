@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Role;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -15,7 +16,7 @@ class UsersController extends Controller
      */
     public function index()
     {
-        $users = User::all();
+        $users = User::orderBy('id')->with('roles')->get();
         return view('bsd-admin.users.index', compact('users'));
     }
 
@@ -26,7 +27,8 @@ class UsersController extends Controller
      */
     public function create()
     {
-        return view('bsd-admin.users.create');
+        $roles = Role::all();
+        return view('bsd-admin.users.create', compact('roles'));
     }
 
     /**
@@ -54,8 +56,10 @@ class UsersController extends Controller
         $user->name = $request->input('name');
         $user->email = $request->input('email');
         $user->password = Hash::make($password);
+        $user->api_token = bin2hex(openssl_random_pseudo_bytes(30));
         
         if($user->save()) {
+            $user->syncRoles(explode(',', $request->role));
             return redirect()->route('user.index')->with('success', 'User created successfully');
         }
         return redirect()->route('user.index')->with('error', 'User cannot be created. Try again later.');
@@ -81,8 +85,9 @@ class UsersController extends Controller
      */
     public function edit($id)
     {
-        $user = User::findOrFail($id);
-        return view('bsd-admin.users.edit', compact('user'));
+        $user = User::whereId($id)->with('roles')->first();
+        $roles = Role::all();
+        return view('bsd-admin.users.edit', compact('user', 'roles'));
     }
 
     /**
@@ -100,8 +105,8 @@ class UsersController extends Controller
         ]);
 
         $user = User::findOrFail($id);
-        $user->name = $request->input('name');
-        $user->email = $request->input('email');
+        $user->name = $request->name;
+        $user->email = $request->email;
 
         if(!empty($request->password)) {
             $password = trim($request->password);
@@ -109,6 +114,7 @@ class UsersController extends Controller
         }
         
         if($user->save()) {
+            $user->syncRoles(explode(',', $request->role));
             return redirect()->route('user.index')->with('success', 'User updated successfully');
         }
         return redirect()->route('user.index')->with('error', 'User cannot be update now. Try again later.');
@@ -122,6 +128,9 @@ class UsersController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $user = User::findOrFail($id);
+        $user->syncRoles($user->roles->pluck('id'));
+        $user->delete();
+        return redirect()->route('user.index')->with('success', 'User Deleted!');
     }
 }

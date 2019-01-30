@@ -19,6 +19,7 @@
                     <tr>
                         <th>Name</th>
                         <th>Email</th>
+                        <th>Role</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
@@ -28,9 +29,16 @@
                             <td>{{ $user->name }}</td>
                             <td>{{ $user->email }}</td>
                             <td>
+                                @foreach($user->roles as $role)
+                                    <span class="mr-2">{{ $role->display_name }}</span>
+                                @endforeach
+                            </td>
+                            <td>
                                 <a href="{{ route('user.show', $user->id) }}" class="btn btn-success btn-sm"><i class="fa fa-eye"></i></a>
                                 <a href="{{ route('user.edit', $user->id) }}" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></a>
                                 <form action="{{ route('user.destroy', $user->id) }}" method="post" class="d-inline">
+                                    @csrf
+                                    @method('DELETE')
                                     <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
                                 </form>
                             </td>

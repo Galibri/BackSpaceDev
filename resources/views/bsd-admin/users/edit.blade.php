@@ -26,6 +26,14 @@
                     <input type="text" name="email" id="email" value="{{ $user->email }}" class="form-control">
                 </div>
                 <div class="form-group">
+                    <label for="role">Role</label>
+                    <select name="role" id="role" class="form-control" v-model.number="role">
+                        @foreach($roles as $role)
+                            <option value="{{ $role->id }}">{{ $role->display_name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="form-group">
                     <label for="password">Password</label>
                     <input type="text" name="password" id="password" class="form-control" :disabled="!auto_password">
                 </div>
@@ -52,7 +60,8 @@
             var app = new Vue({
                 el: '#page-content-wrapper',
                 data: {
-                    auto_password: false
+                    auto_password: false,
+                    role: {!! $user->roles[0]->id !!}
                 }
             });
         });

@@ -57,3 +57,7 @@ if (token) {
 // });
 
 window.Vue = require('vue');
+window.Slug = require('slug');
+Slug.defaults.mode = 'rfc3986';
+
+Vue.component('slug-widget', require('./components/SlugWidget.vue').default);

@@ -18,6 +18,7 @@
                 <div class="card-body">
                     <h4 class="card-title">Name: {{ $user->name }}</h4>
                     <p class="card-text"><strong>Email:</strong> {{ $user->email }}</p>
+                    <p class="card-text"><strong>Role:</strong> {{ $user->roles[0]->display_name }}</p>
                     <p class="card-text"><strong>Registered:</strong> {{ $user->created_at->format('Y-m-d') }}</p>
                 </div>
             </div>            
