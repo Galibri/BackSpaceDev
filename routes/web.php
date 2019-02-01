@@ -13,13 +13,13 @@
 
 // Public Routes
 Route::get('/', 'FrontController@index')->name('main');
-Route::get('/about', 'FrontController@about')->name('about');
-Route::get('/services', 'FrontController@services')->name('services');
-Route::get('/portfolio', 'FrontController@portfolio')->name('portfolio');
-Route::get('/contact', 'FrontController@contact')->name('contact');
-Route::get('/contact', 'FrontController@contactStore')->name('contact.store');
-Route::get('/blog', 'FrontController@blog')->name('blog');
-Route::get('/blog/{id}', 'FrontController@blog')->name('blog.show');
+// Route::get('/about', 'FrontController@about')->name('about');
+// Route::get('/services', 'FrontController@services')->name('services');
+// Route::get('/portfolio', 'FrontController@portfolio')->name('portfolio');
+// Route::get('/contact', 'FrontController@contact')->name('contact');
+// Route::get('/contact', 'FrontController@contactStore')->name('contact.store');
+// Route::get('/blog', 'FrontController@blog')->name('blog');
+// Route::get('/blog/{id}', 'FrontController@blog')->name('blog.show');
 // Route::get('/home', 'HomeController@index')->name('home');
 
 // Backend Routes
