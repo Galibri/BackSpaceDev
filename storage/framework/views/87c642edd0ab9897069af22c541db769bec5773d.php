@@ -87,5 +87,18 @@
                 </li>
             </ul>
         </li>
+        <li class="sidebar-submenu-items">
+            <a href="#expencesSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle <?php echo e(Request::is(['bsd-admin/expences', 'bsd-admin/expences/*']) ? 'active' : ''); ?>">
+                <i class="fa fa-money mr-2"></i> Expense
+            </a>
+            <ul class="collapse  <?php echo e(Request::is(['bsd-admin/expences', 'bsd-admin/expences/*']) ? 'show' : ''); ?>" id="expencesSubmenu">
+                <li class="<?php echo e(Route::is('expences.index') ? 'active' : ''); ?>">
+                    <a href="<?php echo e(route('expences.index')); ?>">Expense</a>
+                </li>
+                <li class="<?php echo e(Route::is('expences.create') ? 'active' : ''); ?>">
+                    <a href="<?php echo e(route('expences.create')); ?>">Add New</a>
+                </li>
+            </ul>
+        </li>
     </ul>
         </div>

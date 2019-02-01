@@ -87,5 +87,18 @@
                 </li>
             </ul>
         </li>
+        <li class="sidebar-submenu-items">
+            <a href="#expencesSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle {{ Request::is(['bsd-admin/expences', 'bsd-admin/expences/*']) ? 'active' : '' }}">
+                <i class="fa fa-money mr-2"></i> Expense
+            </a>
+            <ul class="collapse  {{ Request::is(['bsd-admin/expences', 'bsd-admin/expences/*']) ? 'show' : '' }}" id="expencesSubmenu">
+                <li class="{{ Route::is('expences.index') ? 'active' : '' }}">
+                    <a href="{{ route('expences.index') }}">Expense</a>
+                </li>
+                <li class="{{ Route::is('expences.create') ? 'active' : '' }}">
+                    <a href="{{ route('expences.create') }}">Add New</a>
+                </li>
+            </ul>
+        </li>
     </ul>
-        </div>
+</div>
