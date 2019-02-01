@@ -3,47 +3,75 @@
 @section('content')
     <div class="row">
         <div class="col-md-12">
-            <a href="{{ route('roles.index') }}" class="btn btn-primary btn-lg">Back to Roles</a>
+            <a href="{{ route('projects.index') }}" class="btn btn-primary btn-lg">Back to Projects</a>
         </div>
     </div>
     <div class="row my-3">
         <div class="col-md-12">
-            <h2 class="title">Create Role</h2>
+            <h2 class="title">Create Project</h2>
             <hr>
         </div>
     </div>
-    <div class="row">
-        <div class="col-md-6">
-            <form action="{{ route('roles.store') }}" method="post">
+    <form action="{{ route('projects.store') }}" method="post">
+        <div class="row">
+            <div class="col-md-6">
                 @csrf
                 <div class="form-group">
-                    <label for="display_name">Display Name</label>
-                    <input type="text" name="display_name" id="display_name" value="{{ old('display_name') }}" class="form-control">
+                    <label for="display_name">Select Client</label>
+                    <select name="client_id" id="" class="form-control">
+                        @foreach ($clients as $client)
+                            <option value="{{ $client->id }}">{{ $client->name }}</option>
+                        @endforeach
+                    </select>
                 </div>
                 <div class="form-group">
-                    <label for="name">Name</label>
-                    <input type="text" name="name" id="name" value="{{ old('name') }}" class="form-control">
+                    <label for="name">Project Name</label>
+                    <input type="text" name="name" class="form-control" value="{{ old('name') }}">
                 </div>
                 <div class="form-group">
-                    <label for="description">Description</label>
-                    <input type="text" name="description" id="description" value="{{ old('description') }}" class="form-control">
+                    <label for="name">Details</label>
+                    <textarea name="details" id="details" cols="30" rows="8" class="form-control">{{ old('details') }}</textarea>
                 </div>
-                <hr>
-                <h3>Permissions:</h3>
-                @foreach($permissions as $permission)
-                    <div class="form-group">
-                        <label class="btn btn-outline-default">
-                            <input type="checkbox" value="{{ $permission->id }}" v-model.number="roles" checked autocomplete="off"> {{ $permission->display_name }} ({{ $permission->name }})
-                        </label>
-                    </div>
-                @endforeach
-                <input type="hidden" :value="roles" name="permission_ids">
                 <div class="form-group">
-                    <button type="submit" class="btn btn-primary">Create Role</button>
+                    <label for="estimated_amount">Estimated Budget</label>
+                    <input type="text" name="estimated_amount" class="form-control" value="{{ old('estimated_amount') }}">
                 </div>
-            </form>
+
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary">Create Project</button>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="estimated_time">Estimated Time</label>
+                    <input type="text" name="estimated_time" class="form-control" value="{{ old('estimated_time') }}">
+                </div>
+                <div class="form-group">
+                    <label for="start_date">Start Date</label>
+                    <input type="text" name="start_date" class="form-control bootstrap_datepicker" value="{{ old('start_date') }}" autocomplete="off">
+                </div>
+                <div class="form-group">
+                    <label for="end_date">End Date</label>
+                    <input type="text" name="end_date" class="form-control bootstrap_datepicker" value="{{ old('end_date') }}" autocomplete="off">
+                </div>
+                <div class="form-group">
+                    <label for="status">Status</label>
+                    <select name="status" id="" class="form-control">
+                        <option value="0">Processing</option>
+                        <option value="1">Completed</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="comments">Comments</label>
+                    <input type="text" name="comments" class="form-control" value="{{ old('comments') }}">
+                </div>
+                <div class="form-group">
+                    <label for="file_location">File Location</label>
+                    <input type="text" name="file_location" class="form-control" value="{{ old('file_location') }}">
+                </div>
+            </div>
         </div>
-    </div>
+    </form>
 
 @endsection
 
@@ -53,8 +81,12 @@
             var app = new Vue({
                 el: '#page-content-wrapper',
                 data: {
-                    roles: []
                 }
+            });
+            $('.bootstrap_datepicker').datepicker({
+                format: 'yyyy/mm/dd',
+                autoclose: true,
+                todayHighlight: true,
             });
         });
     </script>

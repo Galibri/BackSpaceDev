@@ -20,7 +20,6 @@
                         <th>Name</th>
                         <th>Email</th>
                         <th>Client Source</th>
-                        <th>Business Type</th>
                         <th>Country</th>
                         <th>Actions</th>
                     </tr>
@@ -31,7 +30,6 @@
                             <td>{{ $client->name }}</td>
                             <td>{{ $client->email }}</td>
                             <td>{{ $client->client_source }}</td>
-                            <td>{{ $client->business_type }}</td>
                             <td>{{ $client->country }}</td>
                             <td>
                                 <a href="{{ route('clients.show', $client->id) }}" class="btn btn-success btn-sm"><i class="fa fa-eye"></i></a>

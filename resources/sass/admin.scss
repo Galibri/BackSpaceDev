@@ -7,6 +7,9 @@
 // Data table
 @import "~datatables.net-bs4/css/dataTables.bootstrap4.min.css";
 
+// Bootstrap datepicker
+@import "~bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css";
+
 body {
     overflow-x: hidden;
 }
@@ -16,22 +19,22 @@ body {
 }
 
 #wrapper.toggled {
-    padding-left: 250px;
+    padding-left: 210px;
 }
 
 #sidebar-wrapper {
     z-index: 1000;
     position: fixed;
-    left: 250px;
+    left: 210px;
     width: 0;
     height: 100%;
-    margin-left: -250px;
+    margin-left: -210px;
     overflow-y: auto;
     background: #000;
 }
 
 #wrapper.toggled #sidebar-wrapper {
-    width: 250px;
+    width: 210px;
 }
 
 #page-content-wrapper {
@@ -42,7 +45,7 @@ body {
 
 #wrapper.toggled #page-content-wrapper {
     position: absolute;
-    margin-right: -250px;
+    margin-right: -210px;
 }
 
 
@@ -51,14 +54,14 @@ body {
 .sidebar-nav {
     position: absolute;
     top: 0;
-    width: 250px;
+    width: 210px;
     margin: 0;
     padding: 0;
     list-style: none;
 }
 
 .sidebar-nav li {
-    text-indent: 10px;
+    text-indent: 3px;
     line-height: 40px;
     border-top: 1px solid #40474e;
 }
@@ -67,6 +70,7 @@ body {
     display: block;
     text-decoration: none;
     color: #999999;
+    font-size: 14px;
 }
 
 .sidebar-nav li a:hover {
@@ -102,7 +106,7 @@ body {
 .sidebar-nav .dropdown-toggle::after {
     float: right;
     margin-top: 18px;
-    margin-right: 15px;
+    margin-right: 25px;
 }
 
 .sidebar-submenu-items > ul {
@@ -151,13 +155,82 @@ body {
     background-position: center;
 }
 
+// Card shadow
+.card-shadow
+{
+  position: relative;
+}
+.card-shadow:before, .card-shadow:after
+{
+  z-index: -1;
+  position: absolute;
+  content: "";
+  bottom: 15px;
+  left: 10px;
+  width: 50%;
+  top: 80%;
+  max-width:300px;
+  background: #777;
+  -webkit-box-shadow: 0 15px 10px #777;
+  -moz-box-shadow: 0 15px 10px #777;
+  box-shadow: 0 15px 10px #777;
+  -webkit-transform: rotate(-3deg);
+  -moz-transform: rotate(-3deg);
+  -o-transform: rotate(-3deg);
+  -ms-transform: rotate(-3deg);
+  transform: rotate(-3deg);
+}
+.card-shadow:after
+{
+  -webkit-transform: rotate(3deg);
+  -moz-transform: rotate(3deg);
+  -o-transform: rotate(3deg);
+  -ms-transform: rotate(3deg);
+  transform: rotate(3deg);
+  right: 10px;
+  left: auto;
+}
+
+.dashboard-cards p.card-text {
+    font-size: 50px;
+    font-weight: bold;
+}
+
+.dashboard-cards p.card-text span {
+    font-weight: normal;
+}
+
+// Color Combination
+.bg-pink {
+    background-color: #e91e63;
+}
+.bg-purple {
+    background-color: #9c27b0;
+}
+.bg-cyan {
+    background-color: #00bcd4;
+}
+.bg-orange {
+    background-color: #ff9800;
+}
+.bg-grey {
+    background-color: #607d8b;
+}
+.dashboard-heading {
+    background: #009688;
+    padding: 10px 0;
+    color: #fff;
+    text-transform: uppercase;
+    margin-bottom: 30px;
+}
+
 @media(min-width:768px) {
     #wrapper {
         padding-left: 0;
     }
 
     #wrapper.toggled {
-        padding-left: 250px;
+        padding-left: 210px;
     }
 
     #sidebar-wrapper {
@@ -165,7 +238,7 @@ body {
     }
 
     #wrapper.toggled #sidebar-wrapper {
-        width: 250px;
+        width: 210px;
     }
 
     #page-content-wrapper {

@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container">
-    <div class="row justify-content-centermt-5">
+    <div class="row justify-content-center mt-5">
         <div class="col-md-6 mt-5">
             <div class="card bg-secondary text-white">
                 <div class="card-header text-center">{{ __('Verify Your Email Address') }}</div>

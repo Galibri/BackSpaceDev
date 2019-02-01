@@ -11,13 +11,21 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Public Routes
+Route::get('/', 'FrontController@index')->name('main');
+Route::get('/about', 'FrontController@about')->name('about');
+Route::get('/services', 'FrontController@services')->name('services');
+Route::get('/portfolio', 'FrontController@portfolio')->name('portfolio');
+Route::get('/contact', 'FrontController@contact')->name('contact');
+Route::get('/contact', 'FrontController@contactStore')->name('contact.store');
+Route::get('/blog', 'FrontController@blog')->name('blog');
+Route::get('/blog/{id}', 'FrontController@blog')->name('blog.show');
+// Route::get('/home', 'HomeController@index')->name('home');
 
+// Backend Routes
 Auth::routes(['verify' => true]);
 
-Route::group(['prefix' => 'bsd-admin', 'middleware' => ['role:superadministrator|administrator|editor|contributor|author', 'verified']], function() {
+Route::group(['prefix' => 'bsd-admin', 'middleware' => ['role:superadministrator|administrator', 'verified']], function() {
 
     Route::get('/', 'DashboardController@index');
     Route::get('/dashboard', 'DashboardController@dashboard')->name('bsd-admin.dashboard');
@@ -29,8 +37,5 @@ Route::group(['prefix' => 'bsd-admin', 'middleware' => ['role:superadministrator
     Route::resource('/clients', 'ClientsController');
     Route::resource('/projects', 'ProjectsController');
     Route::resource('/files', 'FilesController');
+    Route::resource('/expences', 'ExpencesController');
 });
-
-Route::get('/verify/{token}', 'VerifyController@verifyEmail')->name('user.email.verify');
-
-Route::get('/home', 'HomeController@index')->name('home');

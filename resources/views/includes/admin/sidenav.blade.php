@@ -69,15 +69,21 @@
             </ul>
         </li>
         <li class="sidebar-submenu-items">
-            <a href="#clientsSubmenu" data-toggle="collapse" aria-expanded="true" class="dropdown-toggle {{ Request::is(['bsd-admin/clients', 'bsd-admin/clients/*']) ? 'active' : '' }}">
+            <a href="#clientsSubmenu" data-toggle="collapse" aria-expanded="true" class="dropdown-toggle {{ Request::is(['bsd-admin/clients', 'bsd-admin/clients/*', 'bsd-admin/projects', 'bsd-admin/projects/*']) ? 'active' : '' }}">
                 <i class="fa fa-user mr-2"></i> Clients
             </a>
-            <ul class="collapse {{ Request::is(['bsd-admin/clients', 'bsd-admin/clients/*']) ? 'show' : '' }}" id="clientsSubmenu">
+            <ul class="collapse {{ Request::is(['bsd-admin/clients', 'bsd-admin/clients/*', 'bsd-admin/projects', 'bsd-admin/projects/*']) ? 'show' : '' }}" id="clientsSubmenu">
                 <li class="{{ Route::is('clients.index') ? 'active' : '' }}">
                     <a href="{{ route('clients.index') }}">All Clients</a>
                 </li>
                 <li class="{{ Route::is('clients.create') ? 'active' : '' }}">
-                    <a href="{{ route('clients.create') }}">Add New</a>
+                    <a href="{{ route('clients.create') }}">Add New Client</a>
+                </li>
+                <li class="{{ Route::is('projects.index') ? 'active' : '' }}">
+                    <a href="{{ route('projects.index') }}">All Projects</a>
+                </li>
+                <li class="{{ Route::is('projects.create') ? 'active' : '' }}">
+                    <a href="{{ route('projects.create') }}">Add New Project</a>
                 </li>
             </ul>
         </li>

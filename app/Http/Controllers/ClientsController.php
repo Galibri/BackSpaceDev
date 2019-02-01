@@ -63,7 +63,7 @@ class ClientsController extends Controller
     public function show($id)
     {
         $client = Client::findOrFail($id);
-        return view('bsd-admin.clients.edit', compact('client'));
+        return view('bsd-admin.clients.show', compact('client'));
     }
 
     /**
